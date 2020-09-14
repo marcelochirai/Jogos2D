@@ -1,0 +1,56 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameManager : MonoBehaviour
+{
+    #region Singleton
+    public static GameManager Instance;
+
+    //public Text txtScore;
+    private void Awake()
+    {
+        if (!Instance)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    #endregion
+
+    public HUDManager hudManager;
+    
+    int score = 0;
+    int level = 1;
+
+    private void Start()
+    {
+        hudManager = FindObjectOfType<HUDManager>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            level++;
+            SceneManager.LoadScene("Level"+level);
+        }
+    }
+
+    public void AddScore(int value)
+    {
+        score += value;
+        hudManager.SetScore(score);
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
+    
+}

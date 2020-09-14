@@ -1,0 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class HUDManager : MonoBehaviour
+{
+    public Text txtScore;
+
+    private void Start()
+    {
+        GameManager.Instance.hudManager = this; ;
+        txtScore.text = GameManager.Instance.GetScore().ToString();
+    }
+
+    public void SetScore(int value)
+    {
+        txtScore.text = value.ToString();
+    }
+}
